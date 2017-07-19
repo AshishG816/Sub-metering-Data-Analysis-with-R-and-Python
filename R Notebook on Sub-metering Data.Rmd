@@ -1,0 +1,60 @@
+---
+title: "R Notebook on Sub-metering Data"
+output: html_notebook
+---
+Dataset:
+Measurement of electric power consumption in one household with a one-minute sampling rate over a period of almost 4 years that can be found on:
+http://archive.ics.uci.edu/ml/datasets/Individual+household+electric+power+consumption
+
+Reading/Background Article Sub-metering for Electricity located:
+https://s3.amazonaws.com/gbstool/courses/793/docs/IV2p.pdf?AWSAccessKeyId=AKIAJBIZLMJQ2O6DKIAA&Expires=1500454800&Signature=pzpAYFsGeQGPZgsQ%2FvPr3BV3qVI%3D
+
+Task: 
+Given over 2 million minutes of continuous electric power comsumption, can we make a case for the cost with installing sub-metering in a household or business complex?
+________________________________________________________________________________________________________________
+
+Our focus will be using the dplyr package to make the dataset more easily understandable and analyzable in looking for trends.
+
+Upon loading the data set, we take a summary to get an idea of the data. 
+```{r}
+summary(household_power_consumption)
+
+```
+
+Note per my own personal norm, in order to preserve the integrity of the original dataset as well as the various modified versions, whenever drastic changes are made, the new dataframe is given a new name.
+
+We first notice that the We observe that "Date" and time are identified as a character strings and not a value. Time by default needs to be connected to a date to be recognized as time. Thus, first we will change the "Date" column and then we will combine "Date" and "Time" into one column and move in front.
+
+```{r}
+household_power_consumption$Date<-as.Date(household_power_consumption$Date, "%d/%m/%Y" )
+summary(household_power_consumption)
+
+```
+```{r}
+hpc_new<-cbind(household_power_consumption,paste(household_power_consumption$Date,household_power_consumption$Time), stringsAsFactors=FALSE)
+colnames(hpc_new)[10] <-"DateTime"
+hpc_new<- hpc_new[,c(ncol(hpc_new), 1:(ncol(hpc_new)-1))]
+hpc_new$DateTime<-strptime(hpc_new$DateTime, format=" %Y-%m-%d %H:%M:%S")
+summary(hpc_new)
+```
+
+Finally, we notice there are NAs throughout the data. Given we will be doing some statistical analysis and do not want this to skew our results or cause errors in our functions, we will remove the NA's which will finish our initial preprocessing of the data.
+
+```{r}
+hpc_new_noNA<-na.omit(hpc_new)
+summary(hpc_new_noNA)
+```
+
+
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
