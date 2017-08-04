@@ -297,7 +297,7 @@ hpc_Mo_Yr_Mean_Summary_Figure.png<-hpc_rev_Mo_Yr_Mean_Summary%>% gather(key, Wat
 hpc_Mo_Yr_Mean_Summary_Figure.png
 ```
 
-![Figure 1-1](Figure/hpc_Mo_Yr_Mean_Summary_Figure.png)
+![Figure 1-1](Figures/hpc_Mo_Yr_Mean_Summary_Figure.png)
 
 This gives a good idea of the average Watts/Minute electricity usage. One thing that is immediately apparent is that the majority of electricity used is not reported by the sub-metered sections but is miscellaneous, i.e. the GAP_SubMet_Diff_Mean, usage reported. This means based off of the current data reported it would be difficult to make any solid case for the cost benefit in installing sub-metering in a apartment building.
 
