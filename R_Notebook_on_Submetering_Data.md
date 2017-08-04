@@ -337,7 +337,7 @@ hpc_Mo_Mean_Summary_Figure.png<-hpc_rev_Mo_Mean_Summary %>% gather(key, Watts, G
 hpc_Mo_Mean_Summary_Figure.png
 ```
 
-![Figure 1-2](Figure/hpc_Mo_Mean_Summary_Figure.png)
+![](Figures/hpc_Mo_Mean_Summary_Figure.png)
 
 This graph is useful for its simple illustration that during November to early February the electricity usage is the highest and from June to late August usage is minimal. We also can readily see that sub-metering three representing the electricity usage from the electric water-heater and the air-conditioning units is follows the total trend while sub-metering sections one and two are both minimal and fairly flat across the entire year.
 
