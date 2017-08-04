@@ -8,6 +8,7 @@ This is a work in progress. I am new to Github and creating R Notebooks. I have 
 Thank you,
 Ashish
 
+Sub-metering with Data Analytics
 Dataset:
 Measurement of electric power consumption in one household with a one-minute sampling rate over a period of almost 4 years that can be found on:
 http://archive.ics.uci.edu/ml/datasets/Individual+household+electric+power+consumption
