@@ -297,7 +297,7 @@ hpc_Mo_Yr_Mean_Summary_Figure.png<-hpc_rev_Mo_Yr_Mean_Summary%>% gather(key, Wat
 hpc_Mo_Yr_Mean_Summary_Figure.png
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
+![Figure 1-1](Figure/hpc_Mo_Yr_Mean_Summary_Figure.png)
 
 This gives a good idea of the average Watts/Minute electricity usage. One thing that is immediately apparent is that the majority of electricity used is not reported by the sub-metered sections but is miscellaneous, i.e. the GAP_SubMet_Diff_Mean, usage reported. This means based off of the current data reported it would be difficult to make any solid case for the cost benefit in installing sub-metering in a apartment building.
 
@@ -337,7 +337,7 @@ hpc_Mo_Mean_Summary_Figure.png<-hpc_rev_Mo_Mean_Summary %>% gather(key, Watts, G
 hpc_Mo_Mean_Summary_Figure.png
 ```
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png)
+![Figure 1-2](Figure/hpc_Mo_Mean_Summary_Figure.png)
 
 This graph is useful for its simple illustration that during November to early February the electricity usage is the highest and from June to late August usage is minimal. We also can readily see that sub-metering three representing the electricity usage from the electric water-heater and the air-conditioning units is follows the total trend while sub-metering sections one and two are both minimal and fairly flat across the entire year.
 
