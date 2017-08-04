@@ -10,7 +10,7 @@ Reading/Background Article Sub-metering for Electricity located:
 https://s3.amazonaws.com/gbstool/courses/793/docs/IV2p.pdf?AWSAccessKeyId=AKIAJBIZLMJQ2O6DKIAA&Expires=1500454800&Signature=pzpAYFsGeQGPZgsQ%2FvPr3BV3qVI%3D
 
 Task: 
-Given over 2 million minutes of continuous electric power comsumption, can we make a case for the cost with installing sub-metering in a household or business complex?
+Given over 2 million minutes of continuous electric power comsumption, can we make a case for the cost of installing sub-metering in an apartment complex?
 ________________________________________________________________________________________________________________
 
 Our focus will be using the dplyr package to make the dataset more easily understandable and analyzable in looking for trends.
@@ -49,9 +49,9 @@ summary(household_power_consumption)
 ##  NA's   :25979    NA's   :25979
 ```
 
-Note per my own personal norm, in order to preserve the integrity of the original dataset as well as the various modified versions, whenever drastic changes are made, the new dataframe is given a new name.
+Note per my own personal norm in order to preserve the integrity of the original dataset as well as the various modified versions, whenever drastic changes are made, the new dataframe is given a new name.
 
-We first notice that the We observe that "Date" and time are identified as a character strings and not a value. Time by default needs to be connected to a date to be recognized as time. Thus, first we will change the "Date" column and then we will combine "Date" and "Time" into one column and move in front.
+We first observe that "Date" and "Time" are identified as a character strings and not as values. Time by default needs to be connected to a date to be recognized as time. Thus, first we will change the "Date" column and then we will combine "Date" and "Time" into one column and move in front.
 
 
 ```r
@@ -121,7 +121,7 @@ summary(hpc_new)
 ##  NA's   :25979    NA's   :25979    NA's   :25979    NA's   :25979
 ```
 
-Finally, we notice there are NAs throughout the data. Given we will be doing some statistical analysis and do not want this to skew our results or cause errors in our functions, we will remove the NA's which will finish our initial preprocessing of the data.
+Finally, before doing any analytics we see that there are NAs throughout the data. Given we will be doing some statistical analysis and do not want this to skew our results or cause errors in our functions, we will remove the NA's which will finish our initial preprocessing of the data.
 
 
 ```r
@@ -158,9 +158,9 @@ summary(hpc_new_noNA)
 
 Now that our data is pretty clean and manageable, we will consider the task at hand.
 
-Our goal is to see if we can give an argument to whether Sub-metering is would be cost efficient to install in an apartment complex based on the readings we have from the electricity usage of a home with sub-metering.
+Our goal is to see if we can give an argument to whether sub-metering is would be cost efficient to install in an apartment complex based on the readings we have from the electricity usage of a home with sub-metering.
 
-First off, we note there are three sub-meters sections which report electricity usage in watts per minute and that the global active power (GAP) reading in active power in kilowatts for minute averaged. Thus, if we would want to calculate the total miscellaneous electricity used not reported in by the sub-metering we would need to convert the GAP units to watt per minute. Then we would take the difference of GAP in watts per minute and the total of three sub-meters.
+First off, we note there are three sub-metered sections which report electricity usage in watts per minute and that the global active power (GAP) reading in active power is kilowatts for minute averaged units. Thus, if we would want to calculate the total miscellaneous electricity used that is not reported by the three sub-metered sections we would need to convert the GAP units to watt per minute. Then we would take the difference of GAP in watts per minute and the total of three sub-meters.
 
 
 ```r
@@ -206,9 +206,7 @@ summary(hpc_rev)
 ## 
 ```
 
-Now that it looks like we have all the data needed to start our analysis, 
-
-There are various differnt ways to analyze data and look for trends. Given the data is provided sequentially by minutes but electricity is usually billed monthly, it would make sense to group the minutes by months. In order to do this, we would first need to break down the date by month. 
+We will now investigate various ways to analyze data looking for trends to conclude if we can extrapolate an argument for or against installing sub-metering. Given the data is provided sequentially by minutes but electricity is usually billed monthly, it would make sense to group the minutes by months. In order to do this, we would first need to break down the date by month. 
 
 
 ```r
@@ -261,9 +259,9 @@ summary(hpc_rev)
 ## 
 ```
 
-Now that we have the data grouped by months, we want to compare the different electricity usage. Since months have different number of days, it is better to take the average than take sums.
+With the data now grouped by months, we want to compare the different electricity usage over time and since months have different number of days, it is reasonable to take the average of daily usage over each month over taking the sum usage for each month. (Note, an argument could be made for taking monthly sums.) 
 
-Now using the dplyr package in R we can group the data while taking the average usages.
+Now using the dplyr package in R we will group the data while taking the average daily usage for each month.
 
 
 ```r
@@ -289,7 +287,7 @@ hpc_rev_Mo_Yr_Mean_Summary
 ## #   SubM3_Mean <dbl>, GAP_WtPerMin_Mean <dbl>, GAP_SubMet_Diff_Mean <dbl>
 ```
 
-Now using ggplot, we can use the R visualization package to try and get a better handle on the trends on the data.
+Using the the R visualization package ggplot, we try and get a better handle on the trends on the data.
 
 
 ```r
@@ -299,9 +297,9 @@ hpc_Mo_Yr_Mean_Summary_Figure.png
 
 ![](Figures/hpc_Mo_Yr_Mean_Summary_Figure.png)
 
-This gives a good idea of the average Watts/Minute electricity usage. One thing that is immediately apparent is that the majority of electricity used is not reported by the sub-metered sections but is miscellaneous, i.e. the GAP_SubMet_Diff_Mean, usage reported. This means based off of the current data reported it would be difficult to make any solid case for the cost benefit in installing sub-metering in a apartment building.
+This gives a good idea of the average Watts/Minute electricity usage. One thing that is immediately apparent is that the majority of electricity used is not reported by the sub-metered sections but is miscellaneous that is the difference between GAP and total sub-metered usage, i.e. GAP_SubMet_Diff_Mean. This means based off of the current data reported it would be difficult to make any solid case for the cost benefit in installing sub-metering in a apartment building.
 
-Now we have grouped by months chronologically, we will also group by the months taking the mean over all the years. As before we need to first build the summary.
+Now that we have grouped the usage by months chronologically, we will investigate grouping usage for each month taking the mean over all the years. As before we need to first build the data summary.
 
 
 ```r
@@ -329,8 +327,7 @@ hpc_rev_Mo_Mean_Summary
 ## #   GAP_SubMet_Diff_Mean <dbl>
 ```
 
-Now, in order to more easily visualize the trends of each month across the years we will plot the line graph using the ggplot package.
-
+And again, in order to more easily visualize the trends of each month across the years we will plot the line graph using the ggplot package of R.
 
 ```r
 hpc_Mo_Mean_Summary_Figure.png<-hpc_rev_Mo_Mean_Summary %>% gather(key, Watts, GAP_WtPerMin_Mean,SubM1_Mean, SubM2_Mean, SubM3_Mean,GAP_SubMet_Diff_Mean) %>% ggplot(aes(group=key, x=Month,y=Watts,colour=key))+geom_line()+ theme(axis.text.x = element_text(angle = 45, hjust = 1))+scale_x_discrete(name="Months Grouped By Year",limits=c(1,3,6,9,12))
@@ -339,9 +336,9 @@ hpc_Mo_Mean_Summary_Figure.png
 
 ![](Figures/hpc_Mo_Mean_Summary_Figure.png)
 
-This graph is useful for its simple illustration that during November to early February the electricity usage is the highest and from June to late August usage is minimal. We also can readily see that sub-metering three representing the electricity usage from the electric water-heater and the air-conditioning units is follows the total trend while sub-metering sections one and two are both minimal and fairly flat across the entire year.
+This graph is useful for its simple illustration that during November to early February the electricity usage is the highest and from June to late August usage is minimal. We readily see that sub-metering three, representing the electricity usage from the electric water-heater and the air-conditioning units, mirrors the GAP, total electrical usage, trend while sub-metering sections one and two are both minimal and fairly flat across the entire year.
 
-In conclusion, in analyzing the data provided we find this information can be utilized and helpful in the tenants of the apartment being more mindful of their future electricity usage. The tenants can reflect on the trends of their past usuage and if desired try and change their habits in ways to conserve electricity.
+In conclusion, in analyzing the data provided we find this information can be utilized and helpful to the tenant(s) within the single apartment by helping them be more mindful of their future electricity usage. The tenant(s) can reflect on the trends of their past usuage and if desired try and change their habits in ways to conserve electricity.
 
-However, given the task at hand was to provide an argument for or against the cost effectiveness in installing sub-metering in an apartment building, the results are inconclusive. The data and the question are apples and oranges. If each sub-meter was an apartment building and the miscellaneous, "GAP_SubMet_Diff_Mean" usage was the electricity usage attributable to the common areas and therefore the responsibilty of the owner/landlord, then there may be a valid argument. However, without more applicable data being provided or the question changing to the cost effectiveness in sub-metering within an apartment, our results are inconclusive.
+However, given the task at hand was to provide an argument for or against the cost effectiveness in installing sub-metering in an apartment building, the results are inconclusive. The data and the question are apples and oranges. If each sub-meter was an apartment building and the miscellaneous, "GAP_SubMet_Diff_Mean" usage was the electricity usage attributable to the common areas and therefore the responsibilty of the owner/landlord, then there may be a valid argument for or against. However, without more applicable data being provided or the question changing to the cost effectiveness in sub-metering within one apartment, our results are inconclusive.
 
