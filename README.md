@@ -3,7 +3,9 @@ Working Through the Same Data Analysis Path Using Both R and Python
 
 Hello, 
 
-This is a work in progress. I am new to Github and creating R Notebooks. I have spent time working with R and just completed an R notebook of a project I did for a certification from Rutgers University in Data Analytics/Big Data. Information about the project is below as well as the beginning of each notebook. I am now excited to redo the project by diving into Python. My rationale is this is a great learning experience motivating me to dive into using Python and Jupyter Notebook. My goal is for this repo to be a good representation in the duality of data analytics using two different method to achieve the same/similar results.
+This is a work in progress. I am new to Github and creating R Notebooks. I have spent time working with R and just completed an R notebook of a project I did for a certification from Rutgers University in Data Analytics/Big Data. Information about the project is below as well as the beginning of each notebook. I am now excited to redo the project by diving into Python. My rationale is that this will make the learning experience more natural by using a project and dataset that is familiar to me. My goal is for this repo to be a good representation in the duality of data analytics using two different method to achieve the same/similar results.
+
+For now, you should click on the "R_Notebook_on_Submetering_Data.md" link in the repository to see my work so far.  
 
 Thank you,
 Ashish
